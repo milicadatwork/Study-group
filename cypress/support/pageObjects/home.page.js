@@ -7,14 +7,14 @@ class Homepage {
         cy.get('[data-test-id="header-title-text"]')
     }
     globalMenu(){
-        cy.get('[data-test-id="global-menu-btn"]').click()
+        return  cy.get('[data-test-id="global-menu-btn"]')
     }
     clientsLink(){
-        cy.get('[data-test-id="grid-select-clients-link"]').click()
+        return cy.get('[data-test-id="grid-select-clients-link"]')
 
     }
     companyLink(){
-        cy.get('[data-test-id="grid-practice-areas-link"]').click()
+        return cy.get('[data-test-id="grid-practice-areas-link"]')
     }
 }
-export default Homepage
+export default new Homepage();

@@ -1,25 +1,31 @@
 /// <reference types="cypress" />
 
-import Homepage from "/Users/milicadanicic/studyGroup/Study-group/cypress/support/pageObjects/homepage.js"
+import Homepage from "../../support/pageObjects/home.page"
 describe('chelling3-> check homepage links', () => {
-    const homepage = new Homepage();
-
+    
     beforeEach(()=> {
-        homepage.navigate();
-        homepage.globalMenu();
+        Homepage.navigate();
+    })
+    
+    it('has appropriate headline', () => {
+        Homepage.headline()
+        cy.should('have.text', 'We design and ship digital products that transform companies.')
     })
 
     it('has clicked on logo', () => {
+        Homepage.globalMenu().click();
         cy.url().should('eq','https://work.co/grid/');
     })
 
     it('has checked clients link', () => {
-        homepage.clientsLink()
+        Homepage.globalMenu().click();
+        Homepage.clientsLink().click();
         cy.url().should('eq','https://work.co/clients/')
     })
 
     it('has checked company link', () => {
-        homepage.companyLink()
+        Homepage.globalMenu().click();
+        Homepage.companyLink().click();
         cy.url().should('eq','https://work.co/company/')
     })
 
