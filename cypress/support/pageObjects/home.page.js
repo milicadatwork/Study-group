@@ -3,17 +3,17 @@ class Homepage {
     navigate(){
         cy.visit('https://work.co/')
     }
-    headline(){
-        cy.get('[data-test-id="header-title-text"]')
+    get headline(){
+        return cy.get('[data-test-id="header-title-text"]')
     }
-    globalMenu(){
+    get globalMenu(){
         return  cy.get('[data-test-id="global-menu-btn"]')
     }
-    clientsLink(){
+    get clientsLink(){
         return cy.get('[data-test-id="grid-select-clients-link"]')
 
     }
-    companyLink(){
+    get companyLink(){
         return cy.get('[data-test-id="grid-practice-areas-link"]')
     }
 }
