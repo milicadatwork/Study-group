@@ -25,4 +25,14 @@ describe('Login challange', () => {
         cy.url().should('eq','https://www.saucedemo.com/inventory.html')
     })
 
+    it('logout', () => {
+        Login.userName.type('standard_user')
+        Login.password.type('secret_sauce')
+        Login.loginButton.click()
+        cy.url().should('eq','https://www.saucedemo.com/inventory.html')
+        Login.hamburgerButton.click()
+        Login.logOutButton.click()
+        cy.url().should('eq','https://www.saucedemo.com/')
+    })
+
 })

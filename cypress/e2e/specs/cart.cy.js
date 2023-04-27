@@ -1,0 +1,56 @@
+
+import Cart from "../../support/pageObjects/cart.page"
+
+describe('cart tests', () => {
+    beforeEach(() => {
+        cy.login('standard_user','secret_sauce')
+      })
+
+    it('error with no data', () => {
+        Cart.shoppingCart.click()
+        Cart.checkoutButton.click()
+        Cart.checkoutContinue.click()
+        Cart.errorMessage.should('have.text','Error: First Name is required')
+    })
+    it('successful shopping flow', () => {
+        Cart.badge.should('not.exist')
+        Cart.addToCartBag.click()
+        Cart.badge.should('be.visible')
+        Cart.shoppingCart.click()
+        Cart.bagName.should('have.text','Sauce Labs Backpack')
+        Cart.cartQuantity.should('have.text', '1')
+        Cart.bagPrice.should('have.text','$29.99')
+        Cart.removeButton.should('be.visible').contains('Remove')
+        Cart.continueButton.should('be.visible').contains('Continue Shopping')
+        Cart.checkoutButton.should('be.visible').contains('Checkout')
+        Cart.checkoutButton.click()
+        Cart.firstName.type('test')
+        Cart.lastName.type('test')
+        Cart.zipCode.type('11000')
+        Cart.checkoutContinue.click()
+        Cart.bagName.should('have.text','Sauce Labs Backpack')
+        Cart.cartQuantity.should('have.text', '1')
+        Cart.bagPrice.should('have.text','$29.99')
+        Cart.paymentSummary.should('be.visible')
+        Cart.finishButton.click()
+        Cart.completeText.should('have.text','Thank you for your order!')
+        cy.url().should('eq','https://www.saucedemo.com/checkout-complete.html')
+        Cart.backHomeButton.should('be.visible').click()
+        cy.url().should('eq','https://www.saucedemo.com/inventory.html')
+        Cart.badge.should('not.exist')
+    })
+    it('removing items from bag', () => {
+        Cart.addToCartBike.click()
+        Cart.badge.should('be.visible')
+        Cart.shoppingCart.click()
+        Cart.removeButton.click()
+        Cart.badge.should('not.exist')
+     })
+     it('continue shopping', () => {
+        Cart.addToCartBike.click()
+        Cart.shoppingCart.click()
+        Cart.continueButton.click()
+        cy.url().should('eq','https://www.saucedemo.com/inventory.html')
+        Cart.badge.should('be.visible').should('have.text', '1')
+     })
+})
