@@ -23,3 +23,12 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import Login from "../support/pageObjects/login.page"
+
+Cypress.Commands.add('login', (email, password) => { 
+    Login.navigate();
+    Login.userName.type(email)
+    Login.password.type(password)
+    Login.loginButton.click()
+    cy.url().should('eq','https://www.saucedemo.com/inventory.html')
+})
